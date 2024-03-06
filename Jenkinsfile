@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage("stage 1"){
             steps{
-                echo "========executing A========"
+                echo "========Stage 1 From Github========"
             }
             post{
                 always{
@@ -19,7 +19,7 @@ pipeline{
         }
         stage("stage 2"){
             steps{
-                echo "========executing A========"
+                echo "========Stage 2 From Github========"
             }
         }
     }
