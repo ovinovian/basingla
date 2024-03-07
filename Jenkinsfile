@@ -17,7 +17,7 @@ pipeline{
         }
         stage("Dockerized Laravel"){
             steps{
-                sh 'docker build -t xovinovian/lapp'
+                sh 'docker build -t xovinovian/lapp .'
                 sh 'docker tag xovinovian/lapp localhost:5000/xovinovian/lapp'
                 sh 'docker push localhost:5000/xovinovian/lapp'
             }
