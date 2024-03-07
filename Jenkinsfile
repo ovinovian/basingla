@@ -15,11 +15,6 @@ pipeline{
                 sh 'php artisan test'
             }
         }
-        stage("User Acceptance Test Laravel"){
-            steps{
-                sh 'php artisan dusk'
-            }
-        }
         stage("Dockerized Laravel"){
             steps{
                 sh 'docker build -t xovinovian/lapp'
@@ -27,9 +22,28 @@ pipeline{
                 sh 'docker push localhost:5000/xovinovian/lapp'
             }
         }
+        stage("User Acceptance Test Laravel"){
+            steps{
+                sh 'docker run --rm --name mylapp_uat -p 8000:8000 -d localhost:5000/xovinovian/lapp'
+                sh 'php artisan dusk'
+            }
+            post{
+                always{
+                    echo "====++++always++++===="
+                    sh 'docker stop mylapp_uat'
+                }
+                success{
+                    echo "====++++only when successful++++===="
+                }
+                failure{
+                    echo "====++++only when failed++++===="
+                }
+            }
+        }        
         stage("Deploy Laravel Application"){
             steps{
-                sh 'docker run --name mylapp -p 8005:8080 -d localhost:5000/xovinovian/lapp'
+                sh 'docker rm -f mylapp_ops'
+                sh 'docker run --name mylapp_ops -p 8000:8080 -d localhost:5000/xovinovian/lapp'
             }
         }
     }
