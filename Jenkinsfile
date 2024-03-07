@@ -43,7 +43,7 @@ pipeline{
         stage("Deploy Laravel Application"){
             steps{
                 sh 'docker rm -f mylapp_ops'
-                sh 'docker run --name mylapp_ops -p 8080:8000 -d localhost:5000/xovinovian/lapp'
+                sh 'docker run --name mylapp_ops -p 8000:8000 -d localhost:5000/xovinovian/lapp'
             }
         }
     }
