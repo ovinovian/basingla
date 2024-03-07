@@ -21,7 +21,7 @@ pipeline{
         }
         stage("Deploy Laravel Application"){
             steps{
-                sh 'docker run --name mylapp -p 8000:8000 -d localhost:5000/xovinovian/lapp'
+                sh 'docker run --name mylapp -p 8005:8000 -d localhost:5000/xovinovian/lapp'
             }
         }
     }
