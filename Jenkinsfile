@@ -5,9 +5,9 @@ pipeline{
             steps{
                 sh 'composer update'
                 sh 'php artisan key:generate'
-                // sh 'composer require laravel/dusk --dev'
-                // sh 'php artisan dusk:install'
-                // sh 'php artisan dusk:chrome-driver'
+                sh 'composer require laravel/dusk --dev'
+                sh 'php artisan dusk:install'
+                sh 'php artisan dusk:chrome-driver'
             }
         }
         stage("Unit Test Laravel"){
@@ -29,7 +29,7 @@ pipeline{
         }
         stage("Deploy Laravel Application"){
             steps{
-                sh 'docker run --name mylapp -p 8005:8000 -d localhost:5000/xovinovian/lapp'
+                sh 'docker run --name mylapp -p 8005:8080 -d localhost:5000/xovinovian/lapp'
             }
         }
     }
